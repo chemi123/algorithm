@@ -30,12 +30,14 @@ def merge_sort(list):
     left = list[:mid]
     right = list[mid:]
 
+    # ここで分解/マージ/ソート全てを再帰的に行うことになる
     left = merge_sort(left)
     right = merge_sort(right)
 
     return merge(left, right)
 
 
+# 無い便りは良い便り
 if __name__ == '__main__':
     unsorted_list = []
     for i in range(0, 100):
