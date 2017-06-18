@@ -41,10 +41,16 @@ def merge_sort(list):
 if __name__ == '__main__':
     unsorted_list = []
     for i in range(0, 100):
-        unsorted_list.append(randint(1, 100))
+        unsorted_list.append(randint(1, 1000))
 
     sorted_ist = merge_sort(unsorted_list)
     prev = 0
     for i in sorted_ist: 
-        assert prev <= i
-        prev = i
+        try:
+            assert prev <= i
+            prev = i
+        except AssertionError:
+            print "assertion error. prev = %d, i = %d" % (prev, i)
+            print sorted_ist
+            break
+            
