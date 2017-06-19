@@ -4,18 +4,18 @@ from random import randint
 
 class priority_queue:
     def __init__(self, array):
-        self._heap = array
-        self._priority_queue = []
-        self._heap_size = len(array)
+        self.heap = array
+        self.priority_queue = []
+        self.heap_size = len(array)
         self._build_heap()
         self._heap_sort()
 
 
     def get_priority_queue(self):
-        if len(self._priority_queue) != len(self._heap):
+        if len(self.priority_queue) != len(self.heap):
             self._heap_sort()
 
-        return self._priority_queue
+        return self.priority_queue
 
 
     def get_heap(self):
@@ -24,15 +24,15 @@ class priority_queue:
 
     # TODO: バグってる。一回insertしても何もないが100回insertするとおかしくなる
     def insert(self, key):
-        self._heap.append(key)
-        self._heap_size += 1
-        key_pos = len(self._heap) - 1
+        self.heap.append(key)
+        self.heap_size += 1
+        key_pos = len(self.heap) - 1
         parent = self._parent(key_pos)
 
-        while key > self._heap[parent]:
+        while key > self.heap[parent]:
             tmp = key
-            self._heap[key_pos] = self._heap[parent]
-            self._heap[parent] = tmp
+            self.heap[key_pos] = self.heap[parent]
+            self.heap[parent] = tmp
             key_pos = parent
             parent = self._parent(key_pos)
 
@@ -57,38 +57,38 @@ class priority_queue:
         left = self._left(parent)
         right = self._right(parent)
         max_node = parent
-        if left < self._heap_size and self._heap[left] > self._heap[max_node]:
+        if left < self.heap_size and self.heap[left] > self.heap[max_node]:
             max_node = left
 
-        if right < self._heap_size and self._heap[right] > self._heap[max_node]:
+        if right < self.heap_size and self.heap[right] > self.heap[max_node]:
             max_node = right
 
         if max_node != parent:
-            tmp = self._heap[parent]
-            self._heap[parent] = self._heap[max_node]
-            self._heap[max_node] = tmp
+            tmp = self.heap[parent]
+            self.heap[parent] = self.heap[max_node]
+            self.heap[max_node] = tmp
             self._heapify(max_node)
 
 
     def _build_heap(self):
-        max_target_node = len(self._heap) / 2
+        max_target_node = len(self.heap) / 2
         for i in reversed(xrange(max_target_node)):
             self._heapify(i)
 
 
     def _heap_sort(self):
         # コピー渡し
-        heap_bk = list(self._heap)
-        for i in reversed(xrange(1, len(self._heap))):
-            tmp = self._heap[0]
-            self._heap[0] = self._heap[i]
-            self._heap[i] = tmp
-            self._heap_size -= 1
+        heap_bk = list(self.heap)
+        for i in reversed(xrange(1, len(self.heap))):
+            tmp = self.heap[0]
+            self.heap[0] = self.heap[i]
+            self.heap[i] = tmp
+            self.heap_size -= 1
             self._heapify(0)
 
-        self._priority_queue = self._heap
-        self._heap = heap_bk
-        self._heap_size = len(self._heap)
+        self.priority_queue = self.heap
+        self.heap = heap_bk
+        self.heap_size = len(self.heap)
 
 
 if __name__ == '__main__':
