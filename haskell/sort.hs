@@ -8,8 +8,14 @@ merge (x:xs) (y:ys)
 mergeSort :: (Ord a) => [a] -> [a]
 mergeSort [] = []
 mergeSort [x] = [x]
-mergeSort xs = merge (mergeSort ys) (mergeSort zs)
-               where (ys, zs) = halve xs
+mergeSort xs = let (ys, zs) = halve xs in merge (mergeSort ys) (mergeSort zs)
 
 halve :: [a] -> ([a], [a])
 halve xs = splitAt (length xs `div` 2) xs
+
+quickSort :: (Ord a) => [a] -> [a]
+quickSort [] = []
+quickSort (x:xs) =
+    let smallerSorted = quickSort [a | a <- xs, a <= x]
+        biggerSorted  = quickSort [a | a <- xs, a > x]
+    in  smallerSorted ++ [x] ++ biggerSorted
