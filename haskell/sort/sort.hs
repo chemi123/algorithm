@@ -12,3 +12,10 @@ mergeSort :: (Ord a) => [a] -> [a]
 mergeSort [] = []
 mergeSort [x] = [x]
 mergeSort xs = let (ys, zs) = halve xs in merge (mergeSort ys) (mergeSort zs)
+
+quickSort :: (Ord a) => [a] -> [a]
+quickSort [] = []
+quickSort (x:xs) =
+    let smallerSorted = quickSort [a | a <- xs, a <= x]
+        biggerSorted  = quickSort [a | a <- xs, a > x]
+    in  smallerSorted ++ [x] ++ biggerSorted
