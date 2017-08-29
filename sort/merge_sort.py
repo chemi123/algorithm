@@ -53,4 +53,3 @@ if __name__ == '__main__':
             print "assertion error. prev = %d, i = %d" % (prev, i)
             print sorted_ist
             break
-            
