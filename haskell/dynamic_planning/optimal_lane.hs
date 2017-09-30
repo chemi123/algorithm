@@ -73,4 +73,4 @@ calcOptimalPath sections start (EndLane a b) =
         bestPath = if totalTimeA <= totalTimeB
                        then reverse ((End, a, 0) : candidatePathA)
                        else reverse ((End, b, 0) : candidatePathB)
-    in (bestPath, (sum $ map takeSecond bestPath) + (sum $ map takeThird bestPath))
+    in (bestPath, calcMoveTime bestPath + calcTakeTime bestPath)
