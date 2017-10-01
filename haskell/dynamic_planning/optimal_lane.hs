@@ -7,17 +7,6 @@ data Label = A | B | End deriving (Show)
 type Path = [(Label, Int, Int)] -- (lane Label, time to move to the lane, time to take at the lane)
 
 
-takeFirst :: (a, b, c) -> a
-takeFirst (x, _, _) = x
-
-takeSecond :: (a, b, c) -> b
-takeSecond (_, y, _) = y
-
-
-takeThird :: (a, b, c) -> c
-takeThird (_, _, z) = z
-
-
 startLane :: StartLane
 startLane = StartLane 2 7 4 8
 
@@ -42,10 +31,14 @@ calcFirstLane (StartLane stA fstA stB fstB) =
 
 calcMoveTime :: Path -> Int
 calcMoveTime = sum . map takeSecond
+    where takeSecond :: (a, b, c) -> b
+          takeSecond (_, y, _) = y
 
 
 calcTakeTime :: Path -> Int
 calcTakeTime = sum . map takeThird
+    where takeThird :: (a, b, c) -> c
+          takeThird (_, _, z) = z
 
 
 stepLane :: (Path, Path) -> Section -> (Path, Path)
